@@ -1,16 +1,13 @@
+<script lang="ts" setup>
+import NavigationTree from "~/components/NavigationTree.vue";
+</script>
+
 <template>
   <div>
-    <navigation-tree/>
+    <NavigationTree />
     <slot />
   </div>
 </template>
-
-<script lang="ts" setup>
-import NavigationTree from '~/components/NavigationTree.vue';
-
-
-
-</script>
 
 <style>
 

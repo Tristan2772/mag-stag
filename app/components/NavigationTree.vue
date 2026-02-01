@@ -8,14 +8,18 @@
       <NuxtLink to="/">
         <img src="@/assets/mag-stag-logo.png" alt="Mag Stag Logo">
       </NuxtLink>
-      <NuxtLink to="/collections/featured">Featured</NuxtLink>
-      <NuxtLink to="/collections/new">What's New</NuxtLink>
+      <NuxtLink to="/collections/featured">
+        Featured
+      </NuxtLink>
+      <NuxtLink to="/collections/new">
+        What's New
+      </NuxtLink>
     </div>
   </nav>
 </template>
 
 <style scoped>
-.left-nav{
+.left-nav {
   display: flex;
   flex-direction: row;
   align-items: center;

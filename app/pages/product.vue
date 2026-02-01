@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const storefront = useStorefront()
+const storefront = useStorefront();
 
 const { data } = await storefront.request(`#graphql
   query GetProduct($handle: String!) {
@@ -20,9 +20,9 @@ const { data } = await storefront.request(`#graphql
   }
 `, {
   variables: {
-    handle: 'squirrel-car-refrigerator-magnets',
-  }
-})
+    handle: "squirrel-car-refrigerator-magnets",
+  },
+});
 </script>
 
 <template>
