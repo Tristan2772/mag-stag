@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { env } from "node:process";
 
@@ -9,9 +10,13 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "@nuxt/hints",
     "@nuxt/a11y",
-    "@nuxt/ui",
     "@nuxtjs/shopify",
   ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
+  css: ["./app/assets/css/main.css"],
+
   eslint: {
     config: {
       standalone: false,
