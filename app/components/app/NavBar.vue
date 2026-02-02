@@ -1,9 +1,5 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-  <div class="navbar bg-base-100 shadow-sm">
+  <div class="navbar bg-base-100 shadow-sm absolute">
     <div class="flex flex-1">
       <NuxtLink to="/" class="flex">
         <img
