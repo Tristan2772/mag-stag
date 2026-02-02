@@ -4,10 +4,8 @@
 
 <template>
   <div>
-    <h1>Hello world</h1>
-    <NuxtLink to="/product">
-      product
-    </NuxtLink>
+    <app-home-hero />
+    <div id="an-id" class="w-max h-52" />
   </div>
 </template>
 

@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import NavigationTree from "~/components/NavigationTree.vue";
 </script>
 
 <template>
   <div>
-    <NavigationTree />
+    <app-nav-bar />
     <slot />
   </div>
 </template>
