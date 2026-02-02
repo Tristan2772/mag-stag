@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     "@nuxt/hints",
     "@nuxt/a11y",
     "@nuxtjs/shopify",
+    "@nuxt/icon",
   ],
   vite: {
     plugins: [tailwindcss()],
@@ -24,11 +25,11 @@ export default defineNuxtConfig({
   },
   shopify: {
     name: "mag-stag",
-
     clients: {
       storefront: {
         apiVersion: "2025-07",
         publicAccessToken: env.SHOPIFY_PUBLIC_TOKEN,
+        documents: [],
       },
     },
   },
