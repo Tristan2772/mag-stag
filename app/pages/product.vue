@@ -1,26 +1,17 @@
 <script setup lang="ts">
-const storefront = useStorefront();
+const handle = "squirrel-car-refrigerator-magnets";
 
-const { data } = await storefront.request(`#graphql
+const { data } = await useStorefrontData(`product-${handle}`, `#graphql
   query GetProduct($handle: String!) {
     product(handle: $handle) {
-    id
-    title
-    description
-    media(first: 1) {
-          edges {
-            node {
-              mediaContentType
-              alt
-            }
-          }
-        }
-
-  }
+      id
+      title
+      description
+    }
   }
 `, {
   variables: {
-    handle: "squirrel-car-refrigerator-magnets",
+    handle,
   },
 });
 </script>

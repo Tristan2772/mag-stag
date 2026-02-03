@@ -16,7 +16,7 @@ import heroImage from "~/assets/home-hero.png";
         <p class="mb-5">
           Welcome to the Mag Stag Store. I have a plethora of crazy, funny, and crazy funny magnets so have a look, have a laugh, and have a mag from the Mag Stag!
         </p>
-        <a href="#an-id" class="btn btn-primary">
+        <a href="#home-collections" class="btn btn-primary">
           View Magnets
         </a>
       </div>
