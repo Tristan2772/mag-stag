@@ -18,7 +18,7 @@ query getProductsinCollection($handle: String!) {
           id
           title
           availableForSale
-          images(first: 1) {
+          images(first: 5) {
             edges {
               node {
                 id
@@ -27,6 +27,18 @@ query getProductsinCollection($handle: String!) {
                 height
                 altText
               }
+            }
+          }
+          priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+          compareAtPriceRange {
+            minVariantPrice {
+              amount
+              currencyCode
             }
           }
         }
@@ -44,7 +56,15 @@ const products = computed<Product[]>(() =>
     id: node.id,
     title: node.title,
     available: node.availableForSale,
-    imageUrl: node.images.edges[0]?.node.url,
+    price: node.priceRange.minVariantPrice.amount,
+    compareAtPrice: node.priceRange.minVariantPrice.amount,
+    images: node.images.edges.map(({ node: imageNode }) => ({
+      id: imageNode.id,
+      url: imageNode.url,
+      width: imageNode.width,
+      height: imageNode.height,
+      altText: imageNode.altText,
+    })),
   })),
 );
 </script>
@@ -57,18 +77,15 @@ const products = computed<Product[]>(() =>
     <p>{{ data.collection.description }}</p>
     <div class="flex flex-col">
       <div class="flex">
-        <div v-for="product in products" :key="product.id" class="product-card">
-          <img v-if="product.imageUrl" :src="product.imageUrl" :alt="product.title">
-          <div>
-            <h3>{{ product.title }}</h3>
-            <p v-if="!product.available">
-              Out of Stock
-            </p>
-            <p v-else>
-              In Stock
-            </p>
-          </div>
-        </div>
+        <app-product-card
+          v-for="product in products"
+          :key="product.id"
+          :images="product.images"
+          :available="product.available"
+          :title="product.title"
+          :price="product.price"
+          :compare-at-price="product.compareAtPrice"
+        />
       </div>
     </div>
   </div>
