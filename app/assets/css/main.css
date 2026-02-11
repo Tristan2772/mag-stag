@@ -4,3 +4,7 @@
     autumn --default,
     dracula --prefersdark;
 }
+
+.mobile-list {
+  @apply bg-base-100 rounded-box z-100 shadow fixed top-20 inset-x-2 w-auto;
+}

@@ -1,0 +1,28 @@
+{
+  "navLinks": [
+    {
+      "linkLabel": "Featured",
+      "linkPath": "/collections/featured"
+    },
+    {
+      "linkLabel": "New Additions",
+      "linkPath": "/collections/new"
+    }
+  ],
+  "navDropdowns": [
+    {
+      "dropdownLabel": "Collections",
+      "dropdownItems": [
+        {
+          "linkLabel": "Featured",
+          "linkPath": "/collections/featured"
+        },
+        {
+          "linkLabel": "New Additions",
+          "linkPath": "/collections/new"
+        }
+      ]
+    }
+  ]
+
+}
