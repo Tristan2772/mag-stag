@@ -1,11 +1,9 @@
 <script setup>
-import heroImage from "~/assets/home-hero.png";
 </script>
 
 <template>
   <div
-    class="hero min-h-screen"
-    :style="`background-image: url(${heroImage});`"
+    class="hero min-h-screen bg-linear-to-bl from-violet-500 to-fuchsia-500"
   >
     <div class="hero-overlay" />
     <div class="hero-content text-neutral-content text-center">

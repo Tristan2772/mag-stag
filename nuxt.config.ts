@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     "@nuxt/a11y",
     "@nuxtjs/shopify",
     "@nuxt/icon",
+    "@vueuse/nuxt",
   ],
   vite: {
     plugins: [tailwindcss()],

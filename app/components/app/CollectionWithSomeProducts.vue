@@ -17,6 +17,7 @@ query getProductsinCollection($handle: String!) {
         node {
           id
           title
+          description
           availableForSale
           images(first: 5) {
             edges {
@@ -33,20 +34,20 @@ query getProductsinCollection($handle: String!) {
             minVariantPrice {
               amount
               currencyCode
-            }
-          }
-          compareAtPriceRange {
-            minVariantPrice {
-              amount
-              currencyCode
-            }
-          }
-        }
-      }
+              }
+              }
+              compareAtPriceRange {
+                minVariantPrice {
+                  amount
+                  currencyCode
+                  }
+                  }
+                  }
+                  }
     }
   }
-}
-`, {
+  }
+  `, {
   variables: {
     handle,
   },
@@ -55,6 +56,7 @@ const products = computed<Product[]>(() =>
   data.value.collection.products.edges.map(({ node }: { node: ProductNode }) => ({
     id: node.id,
     title: node.title,
+    description: node.description,
     available: node.availableForSale,
     price: node.priceRange.minVariantPrice.amount,
     compareAtPrice: node.priceRange.minVariantPrice.amount,
@@ -67,6 +69,11 @@ const products = computed<Product[]>(() =>
     })),
   })),
 );
+
+const activeProductId = ref("");
+function setActiveProductCardId(productId: string) {
+  activeProductId.value = productId;
+}
 </script>
 
 <template>
@@ -76,15 +83,18 @@ const products = computed<Product[]>(() =>
     </h2>
     <p>{{ data.collection.description }}</p>
     <div class="flex flex-col">
-      <div class="flex">
+      <div class="flex gap-4">
         <app-product-card
           v-for="product in products"
           :key="product.id"
+          :title="product.title"
+          :description="product.description"
           :images="product.images"
           :available="product.available"
-          :title="product.title"
           :price="product.price"
           :compare-at-price="product.compareAtPrice"
+          :is-active-product="activeProductId === product.id"
+          @click="setActiveProductCardId(product.id)"
         />
       </div>
     </div>

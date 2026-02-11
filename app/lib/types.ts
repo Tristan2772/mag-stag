@@ -9,6 +9,7 @@ export type ProductImages = {
 export type Product = {
   id: string;
   title: string;
+  description: string;
   available: boolean;
   images: ProductImages[];
   price: string;
@@ -17,6 +18,7 @@ export type Product = {
 export type ProductNode = {
   id: string;
   title: string;
+  description: string;
   availableForSale: boolean;
   priceRange: {
     minVariantPrice: {
