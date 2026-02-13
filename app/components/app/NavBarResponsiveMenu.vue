@@ -1,53 +1,69 @@
 <script lang="ts" setup>
 import jsonData from "../../assets/jsonData/navLinks.json";
 
-const props = defineProps({
+defineProps({
   isMobileMenu: Boolean!,
+  isOpen: Boolean,
 });
-const navLinks = jsonData.navLinks;
-const navDropdowns = jsonData.navDropdowns;
+const { navLinks, navDropdowns } = jsonData;
+
+const detailRefs = ref<HTMLDetailsElement[]>([]);
+onMounted(() => {
+  detailRefs.value.forEach((el) => {
+    onClickOutside(el, () => {
+      el.open = false;
+    });
+  });
+});
+
+const isDropdownOpen = ref(false);
 </script>
 
 <template>
-  <ul
-    class="menu"
-    :class="props.isMobileMenu ? 'dropdown-content mobile-list' : 'menu-horizontal px-1'"
-    :tabindex="props.isMobileMenu ? -1 : undefined "
-  >
-    <li v-for="(navLink, index) in navLinks" :key="index">
-      <NuxtLink :to="navLink.linkPath">
-        {{ navLink.linkLabel }}
-      </NuxtLink>
-    </li>
-    <li v-for="(navDropdown, index) in navDropdowns" :key="index">
-      <details>
-        <summary>
-          {{ navDropdown.dropdownLabel }}
-        </summary>
-        <ul class="p-2" :class="props.isMobileMenu ? '' : 'top-10 bg-base-100 min-w-40 z-10'">
-          <li v-for="(dropdownItem, itemIndex) in navDropdown.dropdownItems" :key="itemIndex">
-            <NuxtLink :to="dropdownItem.linkPath">
-              {{ dropdownItem.linkLabel }}
-            </NuxtLink>
-          </li>
-        </ul>
-      </details>
-    </li>
-  </ul>
+  <Transition name="mobile-nav-top-fade">
+    <ul
+      v-show="isOpen || !isMobileMenu"
+      class="menu"
+      :class="isMobileMenu ? 'mobile-list z-1' : 'menu-horizontal px-1'"
+      :tabindex="isMobileMenu ? -1 : undefined "
+    >
+      <li v-for="(navLink, index) in navLinks" :key="index">
+        <NuxtLink :to="navLink.linkPath">
+          {{ navLink.linkLabel }}
+        </NuxtLink>
+      </li>
+      <li v-for="(navDropdown, index) in navDropdowns" :key="index">
+        <details ref="detailRefs" @click="isDropdownOpen = !isDropdownOpen">
+          <summary>
+            {{ navDropdown.dropdownLabel }}
+          </summary>
+          <Transition name="mobile-nav-top-fade">
+            <ul v-show="isDropdownOpen" class="p-2" :class="isMobileMenu ? '' : 'top-10 bg-base-100 min-w-40 z-10'">
+              <li v-for="(dropdownItem, itemIndex) in navDropdown.dropdownItems" :key="itemIndex">
+                <NuxtLink :to="dropdownItem.linkPath">
+                  {{ dropdownItem.linkLabel }}
+                </NuxtLink>
+              </li>
+            </ul>
+          </Transition>
+        </details>
+      </li>
+    </ul>
+  </Transition>
 </template>
 
 <style scoped>
-.nav-top-fade-enter-active {
+.mobile-nav-top-fade-enter-active {
   transition: all 0.15s ease-out;
 }
 
-.nav-top-fade-leave-active {
-  transition: all 0.25s ease-out;
+.mobile-nav-top-fade-leave-active {
+  transition: all 0.15s ease-out;
 }
 
-.nav-top-fade-enter-from,
-.nav-top-fade-leave-to {
-  transform: translateY(-100%);
+.mobile-nav-top-fade-enter-from,
+.mobile-nav-top-fade-leave-to {
   opacity: 0;
+  translate: 0 -10px;
 }
 </style>

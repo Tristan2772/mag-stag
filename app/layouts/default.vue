@@ -4,10 +4,26 @@ import { useWindowScroll } from "@vueuse/core";
 const isNavbarVisible = ref(true);
 const { y } = useWindowScroll();
 const previousY = ref(0);
+const scrollThreshold = 30;
 
 watch(y, (newY) => {
-  isNavbarVisible.value = newY < previousY.value || newY <= 0;
-  previousY.value = newY;
+  const changeInY = newY - previousY.value;
+
+  if (changeInY < -scrollThreshold) {
+    // Scrolled up past threshold — show navbar
+    isNavbarVisible.value = true;
+    previousY.value = newY;
+  }
+  else if (changeInY > scrollThreshold) {
+    // Scrolled down past threshold — hide navbar
+    isNavbarVisible.value = false;
+    previousY.value = newY;
+  }
+
+  // Always show navbar near the top of the page
+  if (newY <= 10) {
+    isNavbarVisible.value = true;
+  }
 });
 </script>
 
